@@ -1,0 +1,21 @@
+{
+  "name": "requirejs-middleware",
+  "version": "0.0.1",
+  "description": "Connect middleware for RequireJS compiling",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jbuck/requirejs-middleware.git"
+  },
+  "keywords": [
+    "requirejs",
+    "rjs",
+    "connect",
+    "express",
+    "middleware"
+  ],
+  "author": "Jon Buckley <jon@jbuckley.ca>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "requirejs": "2.1.5"
+  }
+}
