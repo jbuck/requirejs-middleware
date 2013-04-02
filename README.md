@@ -33,6 +33,9 @@ See the full example in [example/server.js](example/server.js).
 
 * `src` - Source directory containing the RequireJS modules. **Required**
 * `dest` - Destination directory to write built RequireJS modules to. **Required**
+* `build` - Compile modules with almond. Recommended for production deployments. Default *false*
+* `once` - Compile modules once. Recommended for production deployments. Default *false*
+* `debug`
 * `modules` - Object containing module paths and RequireJS optimizer options. **Required**
   * *string* - Path to RequireJS module
     * `baseUrl` - All modules are located relative to this path. **Required**

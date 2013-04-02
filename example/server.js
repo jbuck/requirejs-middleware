@@ -7,6 +7,8 @@ app.use(express.logger("dev"));
 app.use(requirejsMiddleware({
   src: __dirname + "/public",
   dest: __dirname + "/build",
+  build: true,
+  debug: true,
   modules: {
     "/main.js": {
       baseUrl: __dirname + "/public",
