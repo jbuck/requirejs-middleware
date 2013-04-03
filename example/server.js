@@ -9,6 +9,9 @@ app.use(requirejsMiddleware({
   dest: __dirname + "/build",
   build: true,
   debug: true,
+  defaults: {
+    preserveLicenseComments: false
+  },
   modules: {
     "/main.js": {
       baseUrl: __dirname + "/public",

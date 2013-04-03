@@ -1,4 +1,5 @@
-var fs = require("fs"),
+var extend = require("extend"),
+    fs = require("fs"),
     gaze = require("gaze"),
     path = require("path"),
     requirejs = require("requirejs");
@@ -53,12 +54,17 @@ module.exports = function(opts) {
   if (!opts.modules) {
     throw "requirejs-middleware: You must specify atleast one module in `modules`";
   }
+
+  // TODO figure out a less crappy way of setting this
   debugMessages = !!opts.debug;
+
+  opts.defaults = opts.defaults || {};
 
   Object.keys(opts.modules).forEach(function(key) {
     var module = opts.modules[key];
     module.name = path.relative(module.baseUrl, __dirname + "/almond");
     module.out = path.join(opts.dest, key);
+    module = extend(true, module, opts.defaults);
 
     if (opts.once) {
       log("`once` set");
