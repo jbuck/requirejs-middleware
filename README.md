@@ -1,3 +1,7 @@
+# requirejs-middleware
+
+Middleware for [Express](http://expressjs.com) that runs the [http://requirejs.org/docs/optimization.html](RequireJS optimizer) on demand. Production-ready and used by [https://popcorn.webmaker.org](Mozilla Popcorn Maker).
+
 # Installation
 
 `npm install requirejs-middleware`
@@ -33,9 +37,9 @@ See the full example in [example/server.js](example/server.js).
 
 * `src` - Source directory containing the RequireJS modules. **Required**
 * `dest` - Destination directory to write built RequireJS modules to. **Required**
-* `build` - Compile modules with almond. Recommended for production deployments. Default *false*
+* `build` - Compile modules with almond. When disabled, the module will be served up unchanged. Default *false*
 * `once` - Compile modules once. Recommended for production deployments. Default *false*
-* `debug`
+* `debug` - Output debugging information on the console. Default *false*
 * `modules` - Object containing module paths and RequireJS optimizer options. **Required**
   * *string* - Path to RequireJS module
     * `baseUrl` - All modules are located relative to this path. **Required**
