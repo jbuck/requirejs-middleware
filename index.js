@@ -34,7 +34,7 @@ function setWatchers(module, deps) {
   module._watched = true;
 
   gaze(deps, function(err, watcher) {
-    log("watching %j", watcher.watched());
+    log("watching %j", watcher.relative());
     watcher.on("all", function(event, filepath) {
       log("%s was %s", filepath, event);
       module._compiled = false;
@@ -77,7 +77,7 @@ module.exports = function(opts) {
   });
 
   return function(req, res, next) {
-    if (opts.once || !opts.build) {
+    if (opts.once) {
       return next();
     }
 
@@ -88,7 +88,7 @@ module.exports = function(opts) {
 
     var module = opts.modules[req.path];
 
-    // Is this a require module we're aware of
+    // Is this a require module we're aware of, and has it been compiled?
     if (!module || module._compiled) {
       return next();
     }
@@ -99,6 +99,25 @@ module.exports = function(opts) {
       // Ignore ENOENT to fall through as 404
       if (err) {
         return next(err.code == "ENOENT" ? null : err);
+      }
+
+      // If we're not building with almond, just copy the file to `dest`
+      if (!opts.build) {
+        var reader = fs.createReadStream(srcPath),
+            writer = fs.createWriteStream(path.join(opts.dest, req.path));
+
+          reader.pipe(writer);
+
+          writer.on("close", function() {
+            log("copied %s into `dest`", req.path);
+            if (!module._watched) {
+              setWatchers(module, srcPath);
+            }
+
+            next();
+          });
+
+        return;
       }
 
       compile(module, function(err, deps) {
