@@ -1,6 +1,6 @@
 # requirejs-middleware
 
-Middleware for [Express](http://expressjs.com) that runs the [http://requirejs.org/docs/optimization.html](RequireJS optimizer) on demand. Production-ready and used by [https://popcorn.webmaker.org](Mozilla Popcorn Maker).
+Middleware for [Express](http://expressjs.com) that runs the [RequireJS optimizer](http://requirejs.org/docs/optimization.html) on demand. Production-ready and used by [Mozilla Popcorn Maker](https://popcorn.webmaker.org).
 
 # Installation
 
