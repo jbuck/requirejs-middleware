@@ -8,25 +8,28 @@ Middleware for [Express](http://expressjs.com) that runs the [RequireJS optimize
 
 # Usage
 
-```
+```javascript
 var express = require("express"),
+    path = require("path"),
     requirejsMiddleware = require("requirejs-middleware");
 
 var app = express();
 
 app.use(express.logger("dev"));
 app.use(requirejsMiddleware({
-  src: __dirname + "/public",
-  dest: __dirname + "/build",
+  src: path.join(__dirname + "/public"),
+  dest: path.join(__dirname + "/build"),
+  build: true,
+  debug: true,
   modules: {
     "/main.js": {
-      baseUrl: __dirname + "/public",
+      baseUrl: path.join(__dirname + "/public"),
       include: "main"
     }
   }
 }));
-app.use(express.static(__dirname + "/build"));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname + "/build")));
+app.use(express.static(path.join(__dirname + "/public")));
 
 app.listen(3000);
 ```
