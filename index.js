@@ -1,6 +1,7 @@
 var extend = require("extend"),
     fs = require("fs"),
     gaze = require("gaze"),
+    mkdirp = require("mkdirp"),
     path = require("path"),
     requirejs = require("requirejs");
 
@@ -103,10 +104,21 @@ module.exports = function(opts) {
 
       // If we're not building with almond, just copy the file to `dest`
       if (!opts.build) {
-        var reader = fs.createReadStream(srcPath),
-            writer = fs.createWriteStream(path.join(opts.dest, req.path));
+        var destPath = path.join(opts.dest, req.path);
 
-          reader.pipe(writer);
+        mkdirp(path.dirname(destPath), function(err) {
+          if (err) {
+            log("error creating directory structure %j", err);
+            return next(err);
+          }
+
+          var reader = fs.createReadStream(srcPath),
+              writer = fs.createWriteStream(destPath);
+
+          reader.on("error", function(err) {
+            log("error reading file: %j", err);
+            next(err);
+          });
 
           writer.on("close", function() {
             log("copied %s into `dest`", req.path);
@@ -116,6 +128,14 @@ module.exports = function(opts) {
 
             next();
           });
+
+          writer.on("error", function(err) {
+            log("error writing file: %j", err);
+            next(err);
+          });
+
+          reader.pipe(writer);
+        });
 
         return;
       }
