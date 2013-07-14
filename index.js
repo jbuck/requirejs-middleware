@@ -18,7 +18,7 @@ function compile(opts, callback) {
     log("compilation succeeded");
     callback(null, deps);
   }, function error(err) {
-    log("compilation failed");
+    log("compilation failed %j", err);
     callback(err);
   });
 }
