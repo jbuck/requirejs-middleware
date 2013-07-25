@@ -47,5 +47,5 @@ See the full example in [example/server.js](example/server.js).
   * *string* - Path to RequireJS module
     * `baseUrl` - All modules are located relative to this path. **Required**
     * `include` - Include this module in the output file. Required if you are optimizing with almond.
-    * `name` - Use this if you are *not* optimizing with almond.
+    * `name` - Name of the module to optimize first. Defaults to [almond](https://github.com/jrburke/almond)
 
