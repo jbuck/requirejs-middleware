@@ -64,7 +64,7 @@ module.exports = function(opts) {
   Object.keys(opts.modules).forEach(function(key) {
     var module = opts.modules[key];
     module = extend(true, module, opts.defaults);
-    module.name = path.relative(module.baseUrl, __dirname + "/almond");
+    module.name = module.name || path.relative(module.baseUrl, __dirname + "/almond");
     module.out = path.join(opts.dest, key);
 
     if (opts.once) {

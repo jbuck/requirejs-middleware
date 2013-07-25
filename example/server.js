@@ -1,5 +1,6 @@
 var express = require("express"),
-    requirejsMiddleware = require("../index.js");
+    requirejsMiddleware = require(".."),
+    path = require("path");
 
 var app = express();
 
@@ -23,4 +24,4 @@ app.use(requirejsMiddleware({
 app.use(express.static(path.join(__dirname, "build")));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.listen(3000);
+app.listen(6767);
