@@ -40,11 +40,12 @@ See the full example in [example/server.js](example/server.js).
 
 * `src` - Source directory containing the RequireJS modules. **Required**
 * `dest` - Destination directory to write built RequireJS modules to. **Required**
-* `build` - Compile modules with almond. When disabled, the module will be served up unchanged. Default *false*
-* `once` - Compile modules once. Recommended for production deployments. Default *false*
+* `build` - Optimize modules. When disabled, the module will be served up unchanged. Default *false*
+* `once` - Optimize modules once. Recommended for production deployments. Default *false*
 * `debug` - Output debugging information on the console. Default *false*
 * `modules` - Object containing module paths and RequireJS optimizer options. **Required**
   * *string* - Path to RequireJS module
     * `baseUrl` - All modules are located relative to this path. **Required**
-    * `include` - Include this module in the output file. You can't use `name` since that's used by almond.js **Required**
+    * `include` - Include this module in the output file. Required if you are optimizing with almond.
+    * `name` - Use this if you are *not* optimizing with almond.
 
