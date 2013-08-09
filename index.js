@@ -15,10 +15,10 @@ function compile(opts, callback) {
       return path.normalize(file);
     });
 
-    log("compilation succeeded");
+    log("compilation succeeded for %s", opts.out);
     callback(null, deps);
   }, function error(err) {
-    log("compilation failed %j", err);
+    log("compilation failed for %s:\n%s", opts.out, err);
     callback(err);
   });
 }
