@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname + "/public")));
 app.listen(3000);
 ```
 
-See the full example in [example/server.js](example/server.js).
+See the full example in [examples/almond/server.js](examples/almond/server.js).
 
 # Options
 
