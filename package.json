@@ -1,6 +1,6 @@
 {
   "name": "requirejs-middleware",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Connect middleware for RequireJS compiling",
   "repository": {
     "type": "git",
