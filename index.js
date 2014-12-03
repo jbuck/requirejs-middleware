@@ -3,6 +3,7 @@ var extend = require("extend"),
     gaze = require("gaze"),
     mkdirp = require("mkdirp"),
     path = require("path"),
+    url = require('url'),
     requirejs = require("requirejs");
 
 function compile(opts, callback) {
@@ -87,14 +88,16 @@ module.exports = function(opts) {
       return next();
     }
 
-    var module = opts.modules[req.path];
+    var pathname = url.parse(req.url).pathname;
+
+    var module = opts.modules[pathname];
 
     // Is this a require module we're aware of, and has it been compiled?
     if (!module || module._compiled) {
       return next();
     }
 
-    var srcPath = path.join(opts.src, req.path);
+    var srcPath = path.join(opts.src, pathname);
 
     fs.stat(srcPath, function(err, srcStats) {
       // Ignore ENOENT to fall through as 404
@@ -104,7 +107,7 @@ module.exports = function(opts) {
 
       // If we're not building with almond, just copy the file to `dest`
       if (!opts.build) {
-        var destPath = path.join(opts.dest, req.path);
+        var destPath = path.join(opts.dest, pathname);
 
         mkdirp(path.dirname(destPath), function(err) {
           if (err) {
@@ -121,7 +124,7 @@ module.exports = function(opts) {
           });
 
           writer.on("close", function() {
-            log("copied %s into `dest`", req.path);
+            log("copied %s into `dest`", pathname);
             if (!module._watched) {
               setWatchers(module, srcPath);
             }
